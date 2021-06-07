@@ -72,59 +72,76 @@ const url = countryCode === 'worldwide' ? 'https://disease.sh/v3/covid-19/all'
   });
 };
   return (
-    <div className="app">
-     <div className="app_left">
-        <div className="app_header">
-          <h1>COVID-19 TRACKER</h1>
-          <FormControl className="app_dropdown">
-            <Select
-              variant="outlined"
-              value={selectedCountry}
-              onChange={onCountryChange}
-              >
-              <MenuItem value="worldwide">Worldwide</MenuItem>
-              {countries.map((country)=>{
-                return <MenuItem key={country.name} value={country.value}>{country.name}</MenuItem> 
-              })}
-              
-            </Select>
-          </FormControl>
-        </div>
-      <div className="app_stats">
-        <InfoBox isRed
-        casesType={casesType} active={casesType === 'cases'}
-        onClick={e=> setCasesType("cases")}
-        title="Coronavirus Cases" cases={prettyPrintStat(countryInfo.todayCases)} total={prettyPrintStat(countryInfo.cases)}/>
-        <InfoBox casesType={casesType} active={casesType === "recovered"}
-        onClick={e=> setCasesType("recovered")}
-         title="Recovered" cases={prettyPrintStat(countryInfo.todayRecovered)} total={prettyPrintStat(countryInfo.recovered)}/>
-        <InfoBox isRed
-        casesType={casesType} active={casesType==="deaths"}
-        onClick={e=> setCasesType("deaths")}
-        title="Deaths" cases={prettyPrintStat(countryInfo.todayDeaths)} total={prettyPrintStat(countryInfo.deaths)}/>
-      </div> 
-    <Map
-    center={mapCenter}
-    zoom={mapZoom}
-    countries={mapCountries}
-    casesType={casesType}
-    />
-  </div>
-  <div className="app_right">
-    <Card>
-        <CardContent>
-          {/*Table */}
-          <h2>Live Cases by Country</h2>
-          <Table countries={tableData}/>
-          {/*Graph*/}
-          <h3 className="app_graphTitle">Worldwide new {casesType}</h3>
-          <LineGraph className="app_graph" casesType={casesType} />
-        </CardContent>
-    </Card>
-  </div>
- </div>
-
-  );
+		<div className='app'>
+			<div className='app_left'>
+				<div className='app_header'>
+					<h1>COVID-19 TRACKER</h1>
+					<FormControl className='app_dropdown'>
+						<Select
+							variant='outlined'
+							value={selectedCountry}
+							onChange={onCountryChange}
+						>
+							<MenuItem value='worldwide'>Worldwide</MenuItem>
+							{countries.map((country) => {
+								return (
+									<MenuItem key={country.name} value={country.value}>
+										{country.name}
+									</MenuItem>
+								);
+							})}
+						</Select>
+					</FormControl>
+				</div>
+				<div className='app_stats'>
+					<InfoBox
+						isRed
+						casesType={casesType}
+						active={casesType === 'cases'}
+						onClick={(e) => setCasesType('cases')}
+						title='Coronavirus Cases'
+						cases={prettyPrintStat(countryInfo.todayCases)}
+						total={prettyPrintStat(countryInfo.cases)}
+					/>
+					<InfoBox
+						casesType={casesType}
+						active={casesType === 'recovered'}
+						onClick={(e) => setCasesType('recovered')}
+						title='Recovered'
+						cases={prettyPrintStat(countryInfo.todayRecovered)}
+						total={prettyPrintStat(countryInfo.recovered)}
+					/>
+					<InfoBox
+						isRed
+						casesType={casesType}
+						active={casesType === 'deaths'}
+						onClick={(e) => setCasesType('deaths')}
+						title='Deaths'
+						cases={prettyPrintStat(countryInfo.todayDeaths)}
+						total={prettyPrintStat(countryInfo.deaths)}
+					/>
+				</div>
+				<Map
+					center={mapCenter}
+					zoom={mapZoom}
+					countries={mapCountries}
+					casesType={casesType}
+				/>
+			</div>
+			<div className='app_right'>
+				<Card>
+					<CardContent>
+						{/*Table */}
+						<h2>Live Cases by Country</h2>
+							<Table countries={tableData} />
+						{/*Graph*/}
+						<h3 className='app_graphTitle'>Worldwide new {casesType}</h3>
+						<LineGraph className='app_graph' casesType={casesType} />
+					</CardContent>
+				</Card>
+			</div>
+		</div>
+	);
 }
 
 export default App;
